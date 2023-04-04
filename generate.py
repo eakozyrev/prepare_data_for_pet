@@ -64,7 +64,7 @@ def generate_emb(ramla,promt,path_to_save,path_to_save_promt):
 
 
 if __name__ == '__main__':
-    path_what_aug='/data/MyBook/Data/anon_explorer/dataset/promts_atten_norm_scatt_random'
+    path_what_aug= sys.argv[1] #'/data/MyBook/Data/anon_explorer/dataset/promts_atten_norm_scatt_random'
 
     path_with_ramla =  '/'.join(path_what_aug.split('/')[:-1])+'/ramla/'
     path_to_aug=path_what_aug+'_emb'+'/'
