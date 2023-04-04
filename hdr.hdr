@@ -1,0 +1,47 @@
+!INTERFILE 
+name of data file := emb_array_fp.view.i 
+data format := image 
+number format := float 
+number of bytes per pixel := 4 
+number of dimensions := 5 
+;dimensions 1-5: x, y, z, phi, tilt 
+matrix size [1] := 150 
+matrix size [2] := 150 
+matrix size [3] := 356 
+matrix size [4] := 1 
+matrix size [5] := 1 
+scaling factor (mm/pixel) [1] := 4.0000 
+scaling factor (mm/pixel) [2] := 4.0000 
+scaling factor (mm/pixel) [3] := 4.0000 
+
+
+non-IF Params (Version SM_1.0): 
+
+Image parameters: 
+ImageScale := 1.000000 
+HeadFirst := 1 
+Supine :=    1 
+Bed Position (mm) :=   1478.0000 
+First img slice ind := 1480 
+Total Counts :=        4587005952 
+Maximum Used Axial Acceptance Angle := 60.0000 
+
+Geometry/data parameters: 
+X-tal X Pitch (mm) :=   4.1000 
+X-tal Z Pitch (mm) :=   4.1000 
+X-tal Thickness (mm) := 19.0000 
+Detector Inside Radius (to x-tal face) (mm) := 382.0000 
+Detector Efficient Diameter (mid x-tals) (mm) :=  783.0000 
+Detector Height (x-tal edges) (mm) :=   1427.6000 
+Number of Transverse modules := 18 
+Transverse x-tals per module := 32 
+Number of Axial modules := 6 
+Axial x-tals per module := 56 
+Axial gap btw. modules :=  10.0000 
+TOF res FWHM (ps) := -1.0000 
+TOF bin step (s)  := 1.953125e-11 
+
+Notes/comments: 
+Interfile created from Petview image: emb_array_fp.view.img 
+-EndOfNotes- 
+
