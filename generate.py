@@ -4,10 +4,10 @@ import sys
 import os
 import glob
 
-N_emb = 100
-R = 5
-first_p=2  #number of first patient in the folder for augmentation
-N_aug_each_pat = 50
+N_emb = 100    # number of embedded objects you want to generate
+R = 5          # maximum size of objects
+first_p=2      #number of first patient in the folder (sys.argv[1]) for augmentation
+N_aug_each_pat = 50   #the number of embedded objects
 
 def generate_emb(ramla,promt,path_to_save,path_to_save_promt):
 
@@ -36,7 +36,7 @@ def generate_emb(ramla,promt,path_to_save,path_to_save_promt):
     del ramla_array
     iiiiffff='/spoolA/anon_explorer/anon/r001_WB_FDG_6R7/HImg/r001_WB_FDG_6R7_50m-60m_20x9_4mm_p.view.img'
     np.array(patient_array, dtype=np.float32).tofile('patient_array.i')
-    os.system('scp /spoolA/anon_explorer/hdr.hdr patient_array.i.hdr')
+    os.system('scp hdr.hdr patient_array.i.hdr')
     os.system('petview2interfile patient_array.i -ii2img -ofo -floatii')
     np.array(emb_array, dtype=np.float32).tofile('emb_array.i')
     os.system('scp patient_array.i.hdr emb_array.i.hdr')
@@ -64,8 +64,7 @@ def generate_emb(ramla,promt,path_to_save,path_to_save_promt):
 
 
 if __name__ == '__main__':
-    path_what_aug= sys.argv[1] #'/data/MyBook/Data/anon_explorer/dataset/promts_atten_norm_scatt_random'
-
+    path_what_aug= sys.argv[1] 
     path_with_ramla =  '/'.join(path_what_aug.split('/')[:-1])+'/ramla/'
     path_to_aug=path_what_aug+'_emb'+'/'
     path_to_aug_ramla = path_to_aug + 'ramla/'
