@@ -4,10 +4,10 @@ import sys
 import os
 import glob
 
-N_emb = 100
-R = 5
-first_p=2  #number of first patient in the folder for augmentation
-N_aug_each_pat = 50
+N_emb = 100    # number of embedded objects you want to generate
+R = 5          # maximum size of objects
+first_p=2      #number of first patient in the folder (sys.argv[1]) for augmentation
+N_aug_each_pat = 50   #the number of embedded objects
 
 def generate_emb(ramla,promt,path_to_save,path_to_save_promt):
 
@@ -36,13 +36,13 @@ def generate_emb(ramla,promt,path_to_save,path_to_save_promt):
     del ramla_array
     iiiiffff='/spoolA/anon_explorer/anon/r001_WB_FDG_6R7/HImg/r001_WB_FDG_6R7_50m-60m_20x9_4mm_p.view.img'
     np.array(patient_array, dtype=np.float32).tofile('patient_array.i')
-    os.system('scp /spoolA/anon_explorer/hdr.hdr patient_array.i.hdr')
+    os.system('scp hdr.hdr patient_array.i.hdr')
     os.system('petview2interfile patient_array.i -ii2img -ofo -floatii')
     np.array(emb_array, dtype=np.float32).tofile('emb_array.i')
     os.system('scp patient_array.i.hdr emb_array.i.hdr')
     os.system('petview2interfile emb_array.i -ii2img -ofo -floatii')
-    os.system(f'direct -oFP -i0t 3 -os 10000 -i0 patient_array.img -if {iiiiffff} -c1f 0 -c2f 0 -sf 0 -ss 1000.0 -rf 0 -ofo -of patient_array_fp -ect 1 -xpd 0 -zpd 0 -toft 1 -tofps 250 -lort 1 -lorwr 3.5 -lorwz 3.5 -imgt 1 -imgw 4 -ft 0 -fc 1.0 -fat 0 -fac 1.0 -fthr 16')
-    os.system(f'direct -oFP -i0t 3 -os 10000 -i0 emb_array.img -if {iiiiffff} -c1f 0 -c2f 0 -sf 0 -ss 1000.0 -rf 0 -ofo -of emb_array_fp -ect 1 -xpd 0 -zpd 0 -toft 1 -tofps 250 -lort 1 -lorwr 3.5 -lorwz 3.5 -imgt 1 -imgw 4 -ft 0 -fc 1.0 -fat 0 -fac 1.0 -fthr 16')
+    os.system(f'direct -oFP -i0t 3 -os 100000 -i0 patient_array.img -if {iiiiffff} -c1f 0 -c2f 0 -sf 0 -ss 1000.0 -rf 0 -ofo -of patient_array_fp -ect 1 -xpd 0 -zpd 0 -toft 1 -tofps 250 -lort 1 -lorwr 3.5 -lorwz 3.5 -imgt 1 -imgw 4 -ft 0 -fc 1.0 -fat 0 -fac 1.0 -fthr 16')
+    os.system(f'direct -oFP -i0t 3 -os 100000 -i0 emb_array.img -if {iiiiffff} -c1f 0 -c2f 0 -sf 0 -ss 1000.0 -rf 0 -ofo -of emb_array_fp -ect 1 -xpd 0 -zpd 0 -toft 1 -tofps 250 -lort 1 -lorwr 3.5 -lorwz 3.5 -imgt 1 -imgw 4 -ft 0 -fc 1.0 -fat 0 -fac 1.0 -fthr 16')
     os.system('petview2interfile emb_array_fp.view.img -ofo -floatii')
     os.system('petview2interfile patient_array_fp.view.img -ofo -floatii')
 
@@ -55,7 +55,7 @@ def generate_emb(ramla,promt,path_to_save,path_to_save_promt):
     promt_ = np.fromfile(promt, dtype=np.float32)
     promt_ = np.reshape(promt_, (9,20,356, 150, 150))
 
-    promt_ = promt_ - patient_array + emb_array
+    promt_ = promt_ - patient_array # + emb_array
     np.array(promt_, dtype=np.float32).tofile(path_to_save_promt)
 
     del promt_
@@ -96,4 +96,3 @@ if __name__ == '__main__':
 
     try: os.system('rm *hdr'); os.system('rm *img'); os.system('rm *.i');  os.system('rm *hist'); os.system('rm *png');
     except: pass
-
