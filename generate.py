@@ -55,7 +55,7 @@ def generate_emb(ramla,promt,path_to_save,path_to_save_promt):
     promt_ = np.fromfile(promt, dtype=np.float32)
     promt_ = np.reshape(promt_, (9,20,356, 150, 150))
 
-    promt_ = promt_ - patient_array # + emb_array
+    promt_ = promt_ - patient_array + emb_array
     np.array(promt_, dtype=np.float32).tofile(path_to_save_promt)
 
     del promt_
